@@ -1,0 +1,97 @@
+﻿@model YourTubes.Models.MyYouTube
+@{
+    ViewBag.Title = "Search List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles
+{
+    <link rel="stylesheet" href="~/css/VideoSearchList.css" asp-append-version="true" />
+}
+
+<h2>Search YouTube Videos</h2>
+
+<div class="search_header">
+    <div class="search_body">
+    @using (Html.BeginForm("VideoSearchList", "MyYouTube", FormMethod.Post, new { style = "margin-right:100px;", @class = "search_form" }))
+    {
+        @Html.TextBox("searchQ")
+        <input type="submit" value="Search Videos">
+    }
+    </div>
+
+
+    @using (Html.BeginForm("AddVideoToPlaylist", "MyYouTube", FormMethod.Post, new { style = "margin-right:100px;", @class = "search_form" }))
+    {
+        <select class="playlists_list" name="playlistID" id="playlistID">
+            @for (int x = 0; x < Model.playlistID.Count; x++)
+            {
+                <option value=@Model.playlistID[x] id="YourPlaylistLists">
+                    @Model.playlistName[x]
+                </option>
+            }
+        </select>
+
+        <select class="playlists_list" name="videoID" , id="videoID">
+            @foreach (Item item in Model.items)
+            {
+                <option value=@item.id.videoId id="YourPlaylistLists">
+                    @item.snippet.title
+                </option>
+            }
+        </select>
+
+        <input type="submit" value="Add to Playlist">
+    }
+
+    @using (Html.BeginForm("DeletePlaylist", "MyYouTube", FormMethod.Post, new { style = "margin-right:100px;", @class = "search_form" }))
+    {
+        <select class="playlists_list" name="playlistID" id="playlistID">
+            @for (int x = 0; x < Model.playlistID.Count; x++)
+            {
+                <option value=@Model.playlistID[x] id="YourPlaylistLists">
+                    @Model.playlistName[x]
+                </option>
+            }
+        </select>
+        <input type="submit" value="Delete Playlist">
+    }
+
+    @using (Html.BeginForm("CreatePlaylist", "MyYouTube", FormMethod.Post, new { style = "margin-right:100px;", @class = "search_form" }))
+    {
+        @Html.TextBox("youtube_playlistName")
+        <input type="submit" value="Create Playlist">
+    }
+    </div>
+
+<body>
+    <div class="card_container">
+        @foreach (Item item in Model.items)
+        {
+        <!-- card -->
+        <div class="card_main">
+            <div class="card_body">
+                <div class="card_img_body">
+                        <img src=@item.snippet.thumbnails.medium.url class="card_img" />
+                </div>
+                <div class="card_info">
+                    <h1 class="card_title">
+                            @item.snippet.title
+                    </h1>
+                    <h1 class="card_desc">
+                        @item.snippet.channelTitle
+                    </h1>
+                    <p class="card_desc">
+                            @item.snippet.description
+                    </p>
+                    <label class="card_date">
+                            @item.snippet.publishTime.ToString("dd-MM-yy hh:d");
+                    </label>
+                </div>
+            </div>
+        </div>
+        }
+        <!-- card -->
+    </div>
+</body>
+
