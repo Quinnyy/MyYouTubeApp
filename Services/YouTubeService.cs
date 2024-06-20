@@ -22,6 +22,7 @@ namespace YourTubes.Services
         private const string Type = "video";
         private const int Max = 12;
         private const bool trueValue = true;
+        private const int number = 0;
 
         public YouTubeService(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
