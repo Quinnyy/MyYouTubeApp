@@ -1,15 +1,10 @@
 ﻿using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Services;
 using Google.Apis.Util;
-using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using YourTubes.Models;
-using static Google.Apis.Requests.BatchRequest;
-using static System.Net.WebRequestMethods;
 
 namespace YourTubes.Services
 {
@@ -22,7 +17,6 @@ namespace YourTubes.Services
         private const string Type = "video";
         private const int Max = 12;
         private const bool trueValue = true;
-        private const int number = 0;
 
         public YouTubeService(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
